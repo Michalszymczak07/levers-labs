@@ -1,9 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
 
-
-
-<script>
 // NAV SHOW HIDE
 let lastScrollTop = 0;
 
@@ -292,4 +287,4 @@ gsap.fromTo("#phone",
 );
 // CTA BLACK TABLET IPHONE END
 
-</script>
+
