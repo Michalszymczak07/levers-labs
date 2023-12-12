@@ -23,35 +23,7 @@ function isHeroInView() {
   return heroRect.bottom > 0;
 }
 
-// GSAP and ScrollTrigger Registration
-gsap.registerPlugin(ScrollTrigger);
 
-// ScrollTrigger for changing navbar colors
-ScrollTrigger.create({
-  trigger: ".hero-wrapper",
-  start: "bottom top", // Triggered when the bottom of the hero-wrapper just leaves the top of the viewport
-  end: "bottom bottom", // Triggered when the bottom of the hero-wrapper reaches the bottom of the viewport
-  onLeaveBack: () => changeNavbarColor(false), // Called when scrolling back up and the hero-wrapper is not in the viewport
-  onEnter: () => changeNavbarColor(true) // Called when scrolling down and the hero-wrapper enters the viewport
-});
-
-function changeNavbarColor(isHeroVisible) {
-  if (isHeroVisible) {
-    // Reset to original colors when the hero-wrapper is in the viewport
-    document.querySelector('.navbar').style.backgroundColor = ''; // original color
-    document.querySelectorAll('.nav-dropdown').forEach(el => el.style.backgroundColor = ''); // original color
-    document.querySelectorAll('.text-link').forEach(el => el.style.color = ''); // original color
-    document.querySelectorAll('.nav-dropdown-item').forEach(el => el.style.backgroundColor = ''); // original color
-    document.querySelectorAll('.text-link-nav').forEach(el => el.style.color = ''); // original color
-  } else {
-    // Change colors when the hero-wrapper is not in the viewport
-    document.querySelector('.navbar').style.backgroundColor = '#FFFFFF';
-    document.querySelectorAll('.nav-dropdown').forEach(el => el.style.backgroundColor = '#2727270D');
-    document.querySelectorAll('.text-link').forEach(el => el.style.color = '#181715');
-    document.querySelectorAll('.nav-dropdown-item').forEach(el => el.style.backgroundColor = '#2727270D');
-    document.querySelectorAll('.text-link-nav').forEach(el => el.style.color = '#181715');
-  }
-}
 
 // NAV SHOW HIDE END 
 
