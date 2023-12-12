@@ -1,5 +1,6 @@
 // NAV SHOW HIDE 
 
+// NAV SHOW HIDE
 
 let lastScrollTop = 0;
 
@@ -8,24 +9,120 @@ window.addEventListener("scroll", () => {
   if (currentScroll > lastScrollTop) {
     // Scrolling down
     if (!isHeroInView()) {
-      gsap.to("#nav", { y: -100, duration: 0.5 }); // Adjust the y value as needed
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar
     }
   } else {
     // Scrolling up
-    gsap.to("#nav", { y: 0, duration: 0.5 });
+    gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the nav bar
   }
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 }, false);
 
 function isHeroInView() {
   const heroWrapper = document.querySelector(".hero-wrapper");
+  if (!heroWrapper) return false;
   const heroRect = heroWrapper.getBoundingClientRect();
   return heroRect.bottom > 0;
 }
 
+// GSAP and ScrollTrigger Registration
+gsap.registerPlugin(ScrollTrigger);
+
+// ScrollTrigger for changing navbar colors
+ScrollTrigger.create({
+  trigger: ".hero-wrapper",
+  start: "top bottom", 
+  end: "bottom top", 
+  onEnterBack: () => changeNavbarColor(false), // Revert to dark mode when hero is in view
+  onLeave: () => changeNavbarColor(true) // Apply light mode when hero is not in view
+});
+
+function changeNavbarColor(isLightMode) {
+  const navbar = document.querySelector('.navbar');
+  const navDropdowns = document.querySelectorAll('.nav-dropdown');
+  const textLinks = document.querySelectorAll('.text-link');
+  const navLinks = document.querySelectorAll('.nav-link, .nav-link-btn');
+  const navDropdownArrows = document.querySelectorAll('.nav-dropdown-arrow');
+  const btnArrows = document.querySelectorAll('.btn-arrow');
+  const navDropdownItems = document.querySelectorAll('.nav-dropdown-item');
+  const navIcons = document.querySelectorAll('.nav-icon');
+  const textLinkNavs = document.querySelectorAll('.text-link-nav');
+
+  if (!navbar) return;
+
+  if (isLightMode) {
+    // Light mode (Navbar is white)
+    navbar.style.backgroundColor = '#FFFFFF'; // White color for the navbar
+    applyStyles(navDropdowns, '#181715', '#F8F8F8'); // Lighter background for .nav-dropdown
+    applyStyles(textLinks, '#181715'); // Dark color for .text-link
+    applyStyles(navLinks, '#181715', '#F8F8F8'); // Styles for .nav-link and .nav-link-btn
+    applyStyles(navDropdownArrows, null, null, '#181715'); // Dark arrow color for light mode
+    applyStyles(btnArrows, null, null, '#181715'); // Dark arrow color for light mode
+    applyStyles(navDropdownItems, '#181715', 'white'); // White background for .nav-dropdown-item
+    applyStroke(navIcons, '#181715'); // Dark stroke for .nav-icon in light mode
+    applyStyles(textLinkNavs, '#181715'); // Dark color for .text-link-nav
+    updateSvgFill('black'); // Update SVG fill to black
+  } else {
+    // Dark mode (Navbar is dark)
+    navbar.style.backgroundColor = '#181715'; // Dark color for the navbar
+    resetStyles(navDropdowns);
+    resetStyles(textLinks);
+    resetStyles(navLinks);
+    resetStyles(navDropdownArrows, true); // Reset arrow color for dark mode
+    resetStyles(btnArrows, true); // Reset arrow color for dark mode
+    resetStyles(navDropdownItems);
+    resetStroke(navIcons); // Reset stroke for .nav-icon in dark mode
+    resetStyles(textLinkNavs);
+    updateSvgFill('white'); // Update SVG fill to white
+  }
+}
+function applyStroke(elements, strokeColor) {
+  elements.forEach(el => {
+    if (strokeColor) el.style.stroke = strokeColor; // Apply stroke color if specified
+  });
+}
+
+function resetStroke(elements) {
+  elements.forEach(el => {
+    el.style.stroke = ''; // Reset stroke color
+  });
+}
+
+function applyStyles(elements, textColor, backgroundColor, strokeOrFillColor) {
+  elements.forEach(el => {
+    if (textColor) el.style.color = textColor;
+    if (backgroundColor) el.style.backgroundColor = backgroundColor;
+    if (strokeOrFillColor) {
+      el.style.stroke = strokeOrFillColor; // Apply stroke color if specified
+      el.style.fill = strokeOrFillColor;   // Apply fill color if specified
+    }
+  });
+}
+
+function resetStyles(elements, resetStrokeOrFill = false) {
+  elements.forEach(el => {
+    el.style.color = '';
+    el.style.backgroundColor = '';
+    if (resetStrokeOrFill) {
+      el.style.stroke = ''; // Reset stroke color if needed
+      el.style.fill = '';   // Reset fill color if needed
+    }
+  });
+}
+function updateSvgFill(color) {
+  for (let i = 1; i <= 12; i++) {
+    let svgElement = document.querySelector('#letter' + i);
+    if (svgElement) {
+      svgElement.style.fill = color;
+    }
+  }
+}
+
+// NAV SHOW HIDE END
 
 
-// NAV SHOW HIDE END 
+
+
 
 //HERO ANIMATION
 
