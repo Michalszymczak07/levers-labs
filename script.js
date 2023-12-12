@@ -1,4 +1,3 @@
-
 // NAV SHOW HIDE
 let lastScrollTop = 0;
 
