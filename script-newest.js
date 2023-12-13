@@ -125,7 +125,6 @@ function updateSvgFill(color) {
 
 
 
-<script>
 // GSAP and ScrollTrigger Registration
 gsap.registerPlugin(ScrollTrigger);
 
@@ -197,7 +196,6 @@ mainTimeline.fromTo(".logo-dark-mode",
 ).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
 
 //HERO ANIMATION END
-</script>
 
 
 // GRID SECTION ANIMATION
