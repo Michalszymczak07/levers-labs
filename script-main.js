@@ -125,8 +125,7 @@ function updateSvgFill(color) {
 
 
 
-//HERO ANIMATION
-
+<script>
 // GSAP and ScrollTrigger Registration
 gsap.registerPlugin(ScrollTrigger);
 
@@ -139,20 +138,35 @@ gsap.to("#letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #
 gsap.set(".nav-menu-inner > *, .button, .hero-title-wrapper > *", { opacity: 0 });
 gsap.set(".hero-img-wrapper", { transformPerspective: 600, rotateX: 45, opacity: 0, transformOrigin: "bottom" });
 
-// Initially fade in .hero-text-left and .hero-img-right as the page loads
-gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 1, duration: 0.5, delay: 1 });
+// Initial fade-in for .hero-text-left and .hero-img-right
+gsap.fromTo([".hero-text-left", ".hero-img-right"], 
+  { opacity: 0 }, 
+  { opacity: 1, duration: 1.5, delay: 1 });
 
-// Fade out .hero-text-left and .hero-img-right when scrolling down and fade in when at the top
+// Set initial state for elements inside .hero-title-wrapper
+gsap.set(".hero-title-wrapper > *", { y: 50, opacity: 0 });
+
+// ScrollTrigger for hero section elements
 ScrollTrigger.create({
   trigger: ".hero-wrapper",
   start: "top top",
   end: "bottom bottom",
-  onLeave: () => gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 }),
-  onEnterBack: () => gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 1, duration: 0.5 })
+  onLeave: () => {
+    gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
+  },
+  onUpdate: (self) => {
+    const threshold = 0.1; // Threshold value for visibility
+    if (self.progress <= threshold || self.progress >= 1 - threshold) {
+      gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
+    }
+  },
+  onLeaveBack: () => {
+    gsap.to(".hero-title-wrapper > *, .nav-menu-inner > *, .button", { opacity: 0, duration: 0.5, stagger: 0 });
+  },
+  markers: false
 });
 
-
-// Reverse animate the SVG logo and animate the tablet
+// ScrollTrigger animation for .hero-title-wrapper and navbar items
 const mainTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".hero-wrapper",
@@ -161,26 +175,31 @@ const mainTimeline = gsap.timeline({
     scrub: 0,
     onUpdate: self => {
       if (self.progress >= 0.75) {
-        gsap.to(".hero-title-wrapper > *", { opacity: 1, duration: 0.5, stagger: 0.1 });
+        gsap.to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
       } else {
         gsap.to(".hero-title-wrapper > *", { opacity: 0, duration: 0.25 });
       }
+    
       if (self.progress >= 0.90) {
-        gsap.to(".nav-menu-inner > *, .button", { opacity: 1, duration: 0.25, stagger: 0.1 });
+        gsap.to(".nav-menu-inner > *, .button", { opacity: 1, duration: 0.5, stagger: 0.2 });
       } else {
-        gsap.to(".nav-menu-inner > *, .button", { opacity: 0, duration: 0.25 });
+        gsap.to(".nav-menu-inner > *, .button", { opacity: 0, duration: 0.5 });
       }
     },
     markers: false
   }
 });
 
+// Animation for logo and hero image
 mainTimeline.fromTo(".logo-dark-mode", 
   { width: "87em" }, // Starting larger
   { width: "14.875em", duration: 0.5 } // Ending smaller
 ).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
 
 //HERO ANIMATION END
+</script>
+
+
 // GRID SECTION ANIMATION
 
 // Set initial states for grid titles
