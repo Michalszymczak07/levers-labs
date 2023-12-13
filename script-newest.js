@@ -124,6 +124,7 @@ function updateSvgFill(color) {
 
 
 
+//HERO ANIMATION 
 
 // GSAP and ScrollTrigger Registration
 gsap.registerPlugin(ScrollTrigger);
