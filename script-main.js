@@ -388,3 +388,143 @@ gsap.fromTo("#phone",
   }
 );
 // CTA BLACK TABLET IPHONE END
+
+// THE CRAZY SECTION LETTERS
+
+  $(document).ready(function() {
+    // Register GSAP plugins
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Run split and animation setup
+    runSplit();
+  });
+
+  let typeSplit;
+
+  // Split the text up and set up animation for each split-word
+  function runSplit() {
+    $(".split-word").each(function() {
+      // Split each instance of split-word
+      let splitInstance = new SplitType(this, {
+        types: "words"
+      });
+
+      // Append line-mask to each word of this instance
+      $(this).find('.word').append("<div class='line-mask'></div>");
+
+      // Create animation for this instance
+      createAnimation($(this));
+    });
+  }
+
+  // Create staggered animation for each split-word instance
+  function createAnimation(splitWordElement) {
+    let allMasks = splitWordElement.find(".word .line-mask").get();
+
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: splitWordElement,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1
+      }
+    });
+
+    tl.to(allMasks, {
+      width: "0%",
+      duration: 1,
+      stagger: 0.5
+    });
+  }
+  // THE CRAZY SECTION LETTERS END
+
+
+
+
+
+
+
+// THE CRAZY SECTION 
+
+// Opacity animations for 5 states
+for (let i = 1; i <= 5; i++) {
+    gsap.to(`.state-${i}`, {
+        scrollTrigger: {
+            trigger: `#sp${i}`,
+            start: "center center",
+            toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        duration: 0.75,
+        ease: "none",
+    });
+
+    if (i > 1) {
+        gsap.to(`.state-${i - 1}`, {
+            scrollTrigger: {
+                trigger: `#sp${i}`,
+                start: "center center",
+                toggleActions: "play none none reverse",
+            },
+            opacity: 0,
+            duration: 0.75,
+            ease: "none",
+        });
+    }
+}
+
+// Moving .number-wrapper elements when scrolling past state-3
+gsap.to(".number-wrapper", {
+    scrollTrigger: {
+        trigger: `#sp3`,
+        start: "center center", // Start moving when state-3 is in the center
+        end: "center top", // End movement when state-3 moves to the top of the viewport
+        scrub: true,
+    },
+    y: '-3em', // Move 3em upwards
+    ease: "none",
+    stagger: 0.05, // Slight stagger for each element
+});
+gsap.registerPlugin(ScrollTrigger);
+
+
+
+// Animation for changing styles and animating state-4-line and state-4-orange when #sp4 is in the center of the viewport
+ScrollTrigger.create({
+    trigger: '#sp4',
+    start: 'center center',
+    onEnter: () => {
+        gsap.to('#sp4-wrapper', { backgroundColor: '#181715', duration: 1 });
+        gsap.to('#sp4', { color: 'white', duration: 1 });
+        gsap.to('.line-mask', { backgroundColor: '#181715', duration: 1 });
+
+        // Animate state-4-line elements
+        gsap.to('.state-4-line', {
+            width: '100%',
+            duration: 1,
+            stagger: 0.1, // slight delay between each line's animation
+            ease: 'none',
+            onComplete: () => {
+                // After completing state-4-line animation, start state-4-orange animation
+                gsap.to('.state-4-orange', {
+                    width: '100%',
+                    duration: 1,
+                    stagger: 0.1, // slight delay between each orange element's animation
+                    ease: 'none'
+                });
+            }
+        });
+    },
+    onLeaveBack: () => {
+        gsap.to('#sp4-wrapper', { backgroundColor: '#E8DACC', duration: 1 });
+        gsap.to('#sp4', { color: '', duration: 1 });
+        gsap.to('.line-mask', { backgroundColor: '#E8DACC', duration: 1 });
+
+        // Revert state-4-line elements width to 0
+        gsap.to('.state-4-line', { width: '0%', duration: 1, ease: 'none' });
+
+        // Also revert state-4-orange elements width to 0
+        gsap.to('.state-4-orange', { width: '0%', duration: 1, ease: 'none' });
+    }
+});
+// THE CRAZY SECTION END
