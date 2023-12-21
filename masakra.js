@@ -428,7 +428,7 @@ if (window.location.pathname === '/' ||
 
     // Run split and animation setup
     runSplit();
-  });
+  })
 
   let typeSplit;
 
