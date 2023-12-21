@@ -122,9 +122,9 @@ function updateSvgFill(color) {
 // NAV SHOW HIDE END
 
 
-
-
 //HERO ANIMATION 
+if (window.location.pathname === '/') {
+
 
 // GSAP and ScrollTrigger Registration
 gsap.registerPlugin(ScrollTrigger);
@@ -195,7 +195,7 @@ mainTimeline.fromTo(".logo-dark-mode",
   { width: "87em" }, // Starting larger
   { width: "14.875em", duration: 0.5 } // Ending smaller
 ).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
-
+}
 //HERO ANIMATION END
 
 
