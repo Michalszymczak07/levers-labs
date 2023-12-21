@@ -419,7 +419,6 @@ gsap.fromTo("#phone",
 
 
 
-
 // PAGE CHECKER
 if (window.location.pathname === '/' || window.location.pathname === '/about') {
     // THE CRAZY SECTION LETTERS
@@ -433,26 +432,16 @@ if (window.location.pathname === '/' || window.location.pathname === '/about') {
 
     let typeSplit;
 
-    // Split the text up and set up animation for each split-word
     function runSplit() {
         $(".split-word").each(function() {
-            // Split each instance of split-word
-            let splitInstance = new SplitType(this, {
-                types: "words"
-            });
-
-            // Append line-mask to each word of this instance
+            let splitInstance = new SplitType(this, { types: "words" });
             $(this).find('.word').append("<div class='line-mask'></div>");
-
-            // Create animation for this instance
             createAnimation($(this));
         });
     }
 
-    // Create staggered animation for each split-word instance
     function createAnimation(splitWordElement) {
         let allMasks = splitWordElement.find(".word .line-mask").get();
-
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: splitWordElement,
