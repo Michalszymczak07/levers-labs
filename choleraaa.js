@@ -421,6 +421,45 @@ gsap.fromTo("#phone",
 
 
 
+    // THE CRAZY SECTION LETTERS
+    $(document).ready(function() {
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Run split and animation setup
+        runSplit();
+    });
+
+    let typeSplit;
+
+    function runSplit() {
+        $(".split-word").each(function() {
+            let splitInstance = new SplitType(this, { types: "words" });
+            $(this).find('.word').append("<div class='line-mask'></div>");
+            createAnimation($(this));
+        });
+    }
+
+    function createAnimation(splitWordElement) {
+        let allMasks = splitWordElement.find(".word .line-mask").get();
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: splitWordElement,
+                start: "top center",
+                end: "bottom center",
+                scrub: 1
+            }
+        });
+
+        tl.to(allMasks, {
+            width: "0%",
+            duration: 1,
+            stagger: 0.5
+        });
+    }
+    // THE CRAZY SECTION LETTERS END
+
+// PAGE CHECKER END
 
 // THE CRAZY SECTION 
 
