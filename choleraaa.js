@@ -423,8 +423,7 @@ gsap.fromTo("#phone",
 
 
 // THE CRAZY SECTION 
-if (window.location.pathname === '/' || 
-    window.location.pathname === '/about' || //PAGE CHECKER 
+
 // Opacity animations for 5 states
 for (let i = 1; i <= 5; i++) {
     gsap.to(`.state-${i}`, {
@@ -506,5 +505,5 @@ ScrollTrigger.create({
         gsap.to('.state-4-orange', { width: '0%', duration: 1, ease: 'none' });
     }
 });
-};
+
 // THE CRAZY SECTION END
