@@ -195,7 +195,9 @@ mainTimeline.fromTo(".logo-dark-mode",
   { width: "87em" }, // Starting larger
   { width: "14.875em", duration: 0.5 } // Ending smaller
 ).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
-}
+
+  
+} // end homepage checker
 //HERO ANIMATION END
 
 
