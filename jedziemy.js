@@ -418,6 +418,9 @@ gsap.fromTo("#phone",
 // CTA BLACK TABLET IPHONE END
 
 // THE CRAZY SECTION LETTERS
+if (window.location.pathname === '/' || 
+    window.location.pathname === '/about' || //PAGE CHECKER 
+  
 
   $(document).ready(function() {
     // Register GSAP plugins
@@ -464,6 +467,7 @@ gsap.fromTo("#phone",
       stagger: 0.5
     });
   }
+} // PAGE CHECKER END 
   // THE CRAZY SECTION LETTERS END
 
 
@@ -473,7 +477,8 @@ gsap.fromTo("#phone",
 
 
 // THE CRAZY SECTION 
-
+if (window.location.pathname === '/' || 
+    window.location.pathname === '/about' || //PAGE CHECKER 
 // Opacity animations for 5 states
 for (let i = 1; i <= 5; i++) {
     gsap.to(`.state-${i}`, {
@@ -555,4 +560,5 @@ ScrollTrigger.create({
         gsap.to('.state-4-orange', { width: '0%', duration: 1, ease: 'none' });
     }
 });
+};
 // THE CRAZY SECTION END
