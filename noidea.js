@@ -123,7 +123,7 @@ function updateSvgFill(color) {
 
 
 //HERO ANIMATION 
-if (window.location.pathname === '/') {
+if (window.location.pathname === '/') {  //homepage checker 
 
 
 // GSAP and ScrollTrigger Registration
@@ -202,6 +202,7 @@ mainTimeline.fromTo(".logo-dark-mode",
 
 
 // GRID SECTION ANIMATION
+if (window.location.pathname === '/') {  //homepage checker 
 
 // Set initial states for grid titles
 gsap.set("#grid-title-1, #grid-title-2, #grid-title-3", { y: 50, opacity: 0 });
@@ -310,10 +311,14 @@ gsap.timeline({
     }
   }
 });
+}  // end homepage checker 
 
 // GRID SECTION ANIMATION END
 
 // TABS SECTION
+
+if (window.location.pathname === '/') {  //homepage checker 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const sectionHeight = window.innerHeight; // Assuming each 100vh section height
@@ -378,7 +383,10 @@ gsap.utils.toArray(".title-wrapper").forEach(titleWrapper => {
     }
   });
 });
+}// end homepage checker 
 // TABS SECTION END
+
+
 // CTA BLACK TABLET IPHONE
 gsap.fromTo("#tablet", 
   { x: '25em', y: '-25em' }, // Starting position
