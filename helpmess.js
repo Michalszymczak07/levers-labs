@@ -122,7 +122,7 @@ function updateSvgFill(color) {
 // NAV SHOW HIDE END
 
 
-User
+
 //HERO ANIMATION 
 if (window.location.pathname === '/') {  //homepage checker 
 
