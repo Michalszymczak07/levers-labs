@@ -164,6 +164,9 @@ if (window.location.pathname === '/') {  // Check if it's the homepage
     },
     markers: false
   });
+gsap.registerPlugin(CustomEase);
+
+CustomEase.create("linearEase", "M0,0 C0,0 1,1 1,1");
 
   // ScrollTrigger animation for .hero-title-wrapper and navbar items
   const mainTimeline = gsap.timeline({
