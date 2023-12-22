@@ -123,84 +123,70 @@ function updateSvgFill(color) {
 
 
 //HERO ANIMATION 
-if (window.location.pathname === '/') {  //homepage checker 
+if (window.location.pathname === '/') {  // Check if it's the homepage
 
+  // GSAP and ScrollTrigger Registration
+  gsap.registerPlugin(ScrollTrigger);
 
-// GSAP and ScrollTrigger Registration
-gsap.registerPlugin(ScrollTrigger);
+  // Initial animation for letters
+  gsap.set("#letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #letter8, #letter9, #letter10, #letter11, #letter12", { y: 50, opacity: 0 });
+  gsap.to("#letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #letter8, #letter9, #letter10, #letter11, #letter12", 
+    { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, delay: 1, ease: "none" });
 
-// Initial animation for letters when the page loads
-gsap.set("#letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #letter8, #letter9, #letter10, #letter11, #letter12", { y: 50, opacity: 0 });
-gsap.to("#letter1, #letter2, #letter3, #letter4, #letter5, #letter6, #letter7, #letter8, #letter9, #letter10, #letter11, #letter12", 
-  { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, delay: 1 });
+  // Set initial states for other elements
+  gsap.set(".nav-menu-inner > *, .button, .hero-title-wrapper > *", { opacity: 0 });
+  gsap.set(".hero-img-wrapper", { transformPerspective: 600, rotateX: 45, opacity: 0, transformOrigin: "bottom" });
 
-// Set initial states for other elements
-gsap.set(".nav-menu-inner > *, .button, .hero-title-wrapper > *", { opacity: 0 });
-gsap.set(".hero-img-wrapper", { transformPerspective: 600, rotateX: 45, opacity: 0, transformOrigin: "bottom" });
+  // Initial fade-in for .hero-text-left and .hero-img-right
+  gsap.fromTo([".hero-text-left", ".hero-img-right"], 
+    { opacity: 0 }, 
+    { opacity: 1, duration: 1.5, delay: 1, ease: "none" });
 
-// Initial fade-in for .hero-text-left and .hero-img-right
-gsap.fromTo([".hero-text-left", ".hero-img-right"], 
-  { opacity: 0 }, 
-  { opacity: 1, duration: 1.5, delay: 1 });
+  // Set initial state for elements inside .hero-title-wrapper
+  gsap.set(".hero-title-wrapper > *", { y: 50, opacity: 0 });
 
-// Set initial state for elements inside .hero-title-wrapper
-gsap.set(".hero-title-wrapper > *", { y: 50, opacity: 0 });
-
-// ScrollTrigger for hero section elements
-ScrollTrigger.create({
-  trigger: ".hero-wrapper",
-  start: "top top",
-  end: "bottom bottom",
-  onLeave: () => {
-    gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
-  },
-  onUpdate: (self) => {
-    const threshold = 0.1; // Threshold value for visibility
-    if (self.progress <= threshold || self.progress >= 1 - threshold) {
-      gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
-    }
-  },
-  onLeaveBack: () => {
-    gsap.to(".hero-title-wrapper > *, .nav-menu-inner > *, .button", { opacity: 0, duration: 0.5, stagger: 0 });
-  },
-  markers: false
-});
-
-// ScrollTrigger animation for .hero-title-wrapper and navbar items
-const mainTimeline = gsap.timeline({
-  scrollTrigger: {
+  // ScrollTrigger for hero section elements
+  ScrollTrigger.create({
     trigger: ".hero-wrapper",
     start: "top top",
     end: "bottom bottom",
-    scrub: true,
-    onUpdate: self => {
-      if (self.progress >= 0.75) {
-        gsap.to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
-      } else {
-        gsap.to(".hero-title-wrapper > *", { opacity: 0, duration: 0.25 });
-      }
-    
-      if (self.progress >= 0.90) {
-        gsap.to(".nav-menu-inner > *, .button", { opacity: 1, duration: 0.5, stagger: 0.2 });
-      } else {
-        gsap.to(".nav-menu-inner > *, .button", { opacity: 0, duration: 0.5 });
+    onLeave: () => {
+      gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
+    },
+    onUpdate: (self) => {
+      const threshold = 0.1; // Threshold value for visibility
+      if (self.progress <= threshold || self.progress >= 1 - threshold) {
+        gsap.to([".hero-text-left", ".hero-img-right"], { opacity: 0, duration: 0.5 });
       }
     },
+    onLeaveBack: () => {
+      gsap.to(".hero-title-wrapper > *, .nav-menu-inner > *, .button", { opacity: 0, duration: 0.5, stagger: 0 });
+    },
     markers: false
-  }
-});
+  });
 
-// Animation for logo and hero image
-mainTimeline.fromTo(".logo-dark-mode", 
-  { width: "87em" }, 
-  { width: "14.875em", duration: 0.5, ease: "none" }
-).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5, ease: "none" }, "<");
+  // ScrollTrigger animation for .hero-title-wrapper and navbar items
+  const mainTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".hero-wrapper",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true, // Ensures smooth, continuous control
+      markers: false
+    }
+  });
 
+  mainTimeline
+    .fromTo(".logo-dark-mode", 
+      { width: "87em" }, // Starting larger
+      { width: "14.875em", duration: 0.5, ease: "none" }
+    )
+    .fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5, ease: "none" }, "<")
+    .to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, 0.75)
+    .to(".nav-menu-inner > *, .button", { opacity: 1, duration: 0.5, stagger: 0.2 }, 0.90);
 
-  
-} // end homepage checker
-//HERO ANIMATION END
-
+} // End homepage checker
+// HERO ANIMATION END 
 
 // GRID SECTION ANIMATION
 if (window.location.pathname === '/') {  //homepage checker 
