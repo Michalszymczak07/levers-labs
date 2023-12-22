@@ -171,13 +171,14 @@ ScrollTrigger.create({
 gsap.registerPlugin(CustomEase);
 
 CustomEase.create("linearEase", "M0,0 C0,0 1,1 1,1");
+
 // ScrollTrigger animation for .hero-title-wrapper and navbar items
 const mainTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".hero-wrapper",
     start: "top top",
     end: "bottom bottom",
-    scrub: 0,
+    scrub: true, // Ensures smooth, continuous control
     onUpdate: self => {
       if (self.progress >= 0.75) {
         gsap.to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
