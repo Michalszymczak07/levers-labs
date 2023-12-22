@@ -167,18 +167,13 @@ ScrollTrigger.create({
   markers: false
 });
 
-  
-gsap.registerPlugin(CustomEase);
-
-CustomEase.create("linearEase", "M0,0 C0,0 1,1 1,1");
-
 // ScrollTrigger animation for .hero-title-wrapper and navbar items
 const mainTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".hero-wrapper",
     start: "top top",
     end: "bottom bottom",
-    scrub: true, // Ensures smooth, continuous control
+    scrub: 0,
     onUpdate: self => {
       if (self.progress >= 0.75) {
         gsap.to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
@@ -196,25 +191,11 @@ const mainTimeline = gsap.timeline({
   }
 });
 
-// Updated animation for the logo with smooth scrolling effect
-gsap.to(".logo-dark-mode", {
-  width: "14.875em", 
-  ease: "Power1.easeInOut",
-  scrollTrigger: {
-    trigger: ".hero-wrapper",
-    start: "top top",
-    end: "bottom bottom",
-    scrub: true,
-    markers: false
-  }
-});
-
-// Animation for hero image
-mainTimeline.fromTo(".hero-img-wrapper", 
-  { rotateX: 45 }, 
-  { rotateX: 0, opacity: 1, duration: 0.5 }, 
-  "<"
-);
+// Animation for logo and hero image
+mainTimeline.fromTo(".logo-dark-mode", 
+  { width: "87em" }, // Starting larger
+  { width: "14.875em", duration: 0.5 } // Ending smaller
+).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
 
   
 } // end homepage checker
