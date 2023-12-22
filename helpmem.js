@@ -196,11 +196,25 @@ const mainTimeline = gsap.timeline({
   }
 });
 
-// Animation for logo and hero image
-mainTimeline.fromTo(".logo-dark-mode", 
-  { width: "87em" }, // Starting larger
-  { width: "14.875em", duration: 0.5, ease: "linearEase" } // Ending smaller
-).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
+// Updated animation for the logo with smooth scrolling effect
+gsap.to(".logo-dark-mode", {
+  width: "14.875em", 
+  ease: "Power1.easeInOut",
+  scrollTrigger: {
+    trigger: ".hero-wrapper",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true,
+    markers: false
+  }
+});
+
+// Animation for hero image
+mainTimeline.fromTo(".hero-img-wrapper", 
+  { rotateX: 45 }, 
+  { rotateX: 0, opacity: 1, duration: 0.5 }, 
+  "<"
+);
 
   
 } // end homepage checker
