@@ -192,9 +192,10 @@ const mainTimeline = gsap.timeline({
 
 // Animation for logo and hero image
 mainTimeline.fromTo(".logo-dark-mode", 
-  { width: "87em" }, // Starting larger
-  { width: "14.875em", duration: 0.5 } // Ending smaller
-).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5 }, "<");
+  { width: "87em" }, 
+  { width: "14.875em", duration: 0.5, ease: "none" }
+).fromTo(".hero-img-wrapper", { rotateX: 45 }, { rotateX: 0, opacity: 1, duration: 0.5, ease: "none" }, "<");
+
 
   
 } // end homepage checker
