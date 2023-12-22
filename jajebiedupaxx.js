@@ -172,7 +172,7 @@ const mainTimeline = gsap.timeline({
     trigger: ".hero-wrapper",
     start: "top top",
     end: "bottom bottom",
-    scrub: 0,
+    scrub: true,
     onUpdate: self => {
       if (self.progress >= 0.75) {
         gsap.to(".hero-title-wrapper > *", { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 });
