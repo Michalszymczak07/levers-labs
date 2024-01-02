@@ -2,23 +2,26 @@ let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  let heroInView = isHeroInView();
 
-  if (isHeroInView()) {
+  if (heroInView) {
     // Hero section is in view
-    gsap.to("#nav", { y: 0, duration: 0.5 }); // Ensure navbar is shown
     document.getElementById('nav').style.backgroundColor = '#181715'; // Dark color for the navbar
+    document.getElementById('nav').style.backdropFilter = 'none'; // Remove blur
     resetLetterColors(); // Reset the colors of the letters
   } else {
     // Hero section is not in view
     document.getElementById('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
+    document.getElementById('nav').style.backdropFilter = 'blur(10px)'; // Apply blur
     changeLetterColorsToBlack(); // Change the colors of the letters to black
-    if (currentScroll > lastScrollTop) {
-      // Scrolling down
-      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
-    } else {
-      // Scrolling up
-      gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
-    }
+  }
+
+  if (currentScroll > lastScrollTop && !heroInView) {
+    // Scrolling down and hero section is not in view
+    gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
+  } else {
+    // Scrolling up or hero section is in view
+    gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
   }
 
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
@@ -51,6 +54,7 @@ function resetLetterColors() {
 
 // Ensure GSAP is registered
 gsap.registerPlugin(ScrollTrigger);
+
 
 
 
