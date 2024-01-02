@@ -1,6 +1,5 @@
 
 // NAV SHOW HIDE 
-
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
@@ -11,7 +10,9 @@ window.addEventListener("scroll", () => {
 
   if (currentScroll > lastScrollTop) {
     // Scrolling down
-    gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar
+    if (!isHeroInView()) {
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar when hero section is not in view
+    }
   } else {
     // Scrolling up
     gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the nav bar
