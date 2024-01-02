@@ -6,8 +6,8 @@ let lastScrollTop = 0;
 window.addEventListener("scroll", () => {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  // Determine navbar transparency and background blur
-  updateNavbarAppearance(currentScroll);
+  // Update navbar appearance based on hero section visibility
+  updateNavbarAppearance();
 
   if (currentScroll > lastScrollTop) {
     // Scrolling down
@@ -19,16 +19,23 @@ window.addEventListener("scroll", () => {
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 }, false);
 
-function updateNavbarAppearance(scrollPosition) {
+function isHeroInView() {
+  const heroSection = document.querySelector("#hero-section");
+  if (!heroSection) return false;
+  const heroRect = heroSection.getBoundingClientRect();
+  return heroRect.bottom > 0;
+}
+
+function updateNavbarAppearance() {
   const navbar = document.querySelector('#nav');
   if (!navbar) return;
 
-  if (scrollPosition === 0) {
-    // At the top of the page
-    navbar.style.backgroundColor = 'transparent';
+  if (isHeroInView()) {
+    // Hero section is in view
+    navbar.style.backgroundColor = '#181715'; // Dark color
     navbar.style.backdropFilter = 'none';
   } else {
-    // Scrolled down
+    // Hero section is not in view
     navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity
     navbar.style.backdropFilter = 'blur(10px)';
   }
