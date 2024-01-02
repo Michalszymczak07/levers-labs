@@ -16,7 +16,7 @@ window.addEventListener("scroll", () => {
 
     if (currentScroll > lastScrollTop) {
       // Scrolling down
-      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly only when hero section is not in view
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
     } else {
       // Scrolling up
       gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
