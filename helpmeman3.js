@@ -3,19 +3,26 @@ let lastScrollTop = 0;
 window.addEventListener("scroll", () => {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  if (currentScroll > lastScrollTop) {
-    // Scrolling down
-    if (!isHeroInView()) {
-      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
-    }
+  // Check hero section visibility and update navbar appearance accordingly
+  if (isHeroInView()) {
+    // Hero section is in view
+    gsap.to("#nav", { y: 0, duration: 0.5 }); // Ensure navbar is shown
+    document.getElementById('nav').style.backgroundColor = '#181715'; // Dark color for the navbar
+    resetLetterColors(); // Reset the colors of the letters
   } else {
-    // Scrolling up
-    gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
+    // Hero section is not in view
+    if (currentScroll > lastScrollTop) {
+      // Scrolling down
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
+    } else {
+      // Scrolling up
+      gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
+    }
+    document.getElementById('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
+    changeLetterColorsToBlack(); // Change the colors of the letters to black
   }
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 
-  // Update navbar background and letter colors based on hero section visibility
-  updateAppearance();
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 }, false);
 
 function isHeroInView() {
@@ -23,21 +30,6 @@ function isHeroInView() {
   if (!heroSection) return false;
   const heroRect = heroSection.getBoundingClientRect();
   return heroRect.bottom > 0;
-}
-
-function updateAppearance() {
-  const navbar = document.getElementById('nav');
-  if (!navbar) return;
-
-  if (isHeroInView()) {
-    // Hero section is in view
-    navbar.style.backgroundColor = '#181715'; // Dark color for the navbar
-    resetLetterColors(); // Reset the colors of the letters
-  } else {
-    // Hero section is not in view
-    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
-    changeLetterColorsToBlack(); // Change the colors of the letters to black
-  }
 }
 
 function changeLetterColorsToBlack() {
@@ -60,6 +52,7 @@ function resetLetterColors() {
 
 // Ensure GSAP is registered
 gsap.registerPlugin(ScrollTrigger);
+
 
 
 
