@@ -1,17 +1,18 @@
-
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  // Update navbar appearance based on hero section visibility
-  updateNavbarAppearance();
-
-  if (currentScroll <= lastScrollTop) {
+  if (currentScroll > lastScrollTop) {
+    // Scrolling down
+    if (!isHeroInView()) {
+      document.getElementById("nav").style.top = "-6.25em"; // Hides the navbar
+    }
+  } else {
     // Scrolling up
-    gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the nav bar
+    document.getElementById("nav").style.top = "0"; // Shows the navbar
   }
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Update lastScrollTop
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 }, false);
 
 function isHeroInView() {
@@ -20,6 +21,7 @@ function isHeroInView() {
   const heroRect = heroSection.getBoundingClientRect();
   return heroRect.bottom > 0;
 }
+
 
 function updateNavbarAppearance() {
   const navbar = document.querySelector('#nav');
