@@ -7,20 +7,15 @@ window.addEventListener("scroll", () => {
   // Update navbar appearance based on hero section visibility
   updateNavbarAppearance();
 
-  if (currentScroll > lastScrollTop) {
-    // Scrolling down
-    if (!isHeroInView()) {
-      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar only when hero section is not in view
-    }
-  } else {
+  if (currentScroll <= lastScrollTop) {
     // Scrolling up
     gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the nav bar
   }
-  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Update lastScrollTop
 }, false);
 
 function isHeroInView() {
-  const heroSection = document.querySelector("#section-hero");
+  const heroSection = document.querySelector("#hero-section");
   if (!heroSection) return false;
   const heroRect = heroSection.getBoundingClientRect();
   return heroRect.bottom > 0;
@@ -33,12 +28,13 @@ function updateNavbarAppearance() {
   if (isHeroInView()) {
     // Hero section is in view
     navbar.style.backgroundColor = '#181715'; // Dark color for the navbar
-    resetLetterColors(); // Reset the colors of the letters
+    navbar.style.backdropFilter = 'none';
+    resetLetterColors(); // Optionally reset the colors of the letters
   } else {
     // Hero section is not in view
     navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
     navbar.style.backdropFilter = 'blur(10px)';
-    changeLetterColorsToBlack(); // Change the colors of the letters to black
+    changeLetterColorsToBlack(); // Optionally change the colors of the letters to black
   }
 }
 
