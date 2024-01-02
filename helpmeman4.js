@@ -36,7 +36,7 @@ function changeLetterColorsToBlack() {
   for (let i = 1; i <= 12; i++) {
     let letter = document.querySelector('#letter' + i);
     if (letter) {
-      letter.style.fill = 'black';
+      letter.style.fill = '#181715'; // Change fill color to black
     }
   }
 }
@@ -49,6 +49,7 @@ function resetLetterColors() {
     }
   }
 }
+
 
 // Ensure GSAP is registered
 gsap.registerPlugin(ScrollTrigger);
