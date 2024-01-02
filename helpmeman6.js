@@ -3,7 +3,6 @@ let lastScrollTop = 0;
 window.addEventListener("scroll", () => {
   let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-  // Check hero section visibility and update navbar appearance accordingly
   if (isHeroInView()) {
     // Hero section is in view
     gsap.to("#nav", { y: 0, duration: 0.5 }); // Ensure navbar is shown
@@ -11,6 +10,8 @@ window.addEventListener("scroll", () => {
     resetLetterColors(); // Reset the colors of the letters
   } else {
     // Hero section is not in view
+    document.getElementById('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
+    changeLetterColorsToBlack(); // Change the colors of the letters to black
     if (currentScroll > lastScrollTop) {
       // Scrolling down
       gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
@@ -18,8 +19,6 @@ window.addEventListener("scroll", () => {
       // Scrolling up
       gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
     }
-    document.getElementById('nav').style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
-    changeLetterColorsToBlack(); // Change the colors of the letters to black
   }
 
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
@@ -36,7 +35,7 @@ function changeLetterColorsToBlack() {
   for (let i = 1; i <= 12; i++) {
     let letter = document.querySelector('#letter' + i);
     if (letter) {
-      letter.style.fill = 'black'; // Change fill color to black
+      letter.style.fill = 'black'; // Change fill color to black for SVG paths
     }
   }
 }
@@ -45,14 +44,14 @@ function resetLetterColors() {
   for (let i = 1; i <= 12; i++) {
     let letter = document.querySelector('#letter' + i);
     if (letter) {
-      letter.style.fill = ''; // Reset fill color
+      letter.style.fill = ''; // Reset fill color for SVG paths
     }
   }
 }
 
-
 // Ensure GSAP is registered
 gsap.registerPlugin(ScrollTrigger);
+
 
 
 
