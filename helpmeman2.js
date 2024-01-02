@@ -6,11 +6,11 @@ window.addEventListener("scroll", () => {
   if (currentScroll > lastScrollTop) {
     // Scrolling down
     if (!isHeroInView()) {
-      document.getElementById("nav").style.top = "-100px"; // Hides the navbar
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the navbar smoothly
     }
   } else {
     // Scrolling up
-    document.getElementById("nav").style.top = "0"; // Shows the navbar
+    gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the navbar smoothly
   }
   lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 
@@ -57,6 +57,9 @@ function resetLetterColors() {
     }
   }
 }
+
+// Ensure GSAP is registered
+gsap.registerPlugin(ScrollTrigger);
 
 
 
