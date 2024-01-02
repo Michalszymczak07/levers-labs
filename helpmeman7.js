@@ -9,7 +9,9 @@ window.addEventListener("scroll", () => {
 
   if (currentScroll > lastScrollTop) {
     // Scrolling down
-    gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar when hero section is not in view
+    if (!isHeroInView()) {
+      gsap.to("#nav", { y: -100, duration: 0.5 }); // Hides the nav bar only when hero section is not in view
+    }
   } else {
     // Scrolling up
     gsap.to("#nav", { y: 0, duration: 0.5 }); // Shows the nav bar
@@ -30,12 +32,11 @@ function updateNavbarAppearance() {
 
   if (isHeroInView()) {
     // Hero section is in view
-    navbar.style.backgroundColor = '#181715'; // Dark color
-    navbar.style.backdropFilter = 'none';
+    navbar.style.backgroundColor = '#181715'; // Dark color for the navbar
     resetLetterColors(); // Reset the colors of the letters
   } else {
     // Hero section is not in view
-    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity
+    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.5)'; // White with 50% opacity for the navbar
     navbar.style.backdropFilter = 'blur(10px)';
     changeLetterColorsToBlack(); // Change the colors of the letters to black
   }
@@ -61,6 +62,7 @@ function resetLetterColors() {
 
 // GSAP and ScrollTrigger Registration (if needed)
 gsap.registerPlugin(ScrollTrigger);
+
 
 
 
