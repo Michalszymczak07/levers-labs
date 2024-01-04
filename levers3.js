@@ -105,7 +105,7 @@ gsap.set("#square-item-3, #square-item-4, #square-item-7, #square-item-8", { opa
 
 // Scroll-triggered animation for the first row of square items
 gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
-  opacity:100,
+  opacity:1,
   y: 0,
  
   duration: 2.5,
