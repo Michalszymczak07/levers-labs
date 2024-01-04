@@ -86,116 +86,118 @@ mainTimeline.fromTo(".logo-dark-mode",
 // GRID SECTION ANIMATION
 if (window.location.pathname === '/') {  //homepage checker 
 
-// Set initial states for grid titles
-gsap.set("#grid-title-1, #grid-title-2, #grid-title-3", { y: 50, opacity: 0 });
+  // Set initial states for grid titles
+  gsap.set("#grid-title-1, #grid-title-2, #grid-title-3", { y: 50, opacity: 0 });
 
-const titleTimeline = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#grid-section",
-    start: "top center",
-    onEnter: () => {
-      titleTimeline.to("#grid-title-1, #grid-title-2, #grid-title-3", { y: 0, opacity: 1, duration: 1, stagger: 0.3 });
+  const titleTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#grid-section",
+      start: "top center",
+      onEnter: () => {
+        titleTimeline.to("#grid-title-1, #grid-title-2, #grid-title-3", { y: 0, opacity: 1, duration: 1, stagger: 0.3 });
+      }
     }
-  }
-});
+  });
 
-// Set initial states for grid items
-gsap.set("#square-item-1, #square-item-2, #square-item-5, #square-item-6", { opacity: 0, y: 50 });
-gsap.set("#square-item-3, #square-item-4, #square-item-7, #square-item-8", { opacity: 0,  y: 50 });
+  // Set initial states for grid items
+  gsap.set("#square-item-1, #square-item-2, #square-item-5, #square-item-6", { opacity: 0, y: 50 });
+  gsap.set("#square-item-3, #square-item-4, #square-item-7, #square-item-8", { opacity: 0, y: 50 });
 
-// Scroll-triggered animation for the first row of square items
-gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
-  opacity:1,
-  y: 0,
- 
-  duration: 2.5,
-  stagger: 0.7,
-  scrollTrigger: {
-    trigger: "#row-1",
-    start: "top center",
-    end: "center center",
-    scrub: true
-  }
-});
-
-// Scroll-triggered animation for the second row of square items
-gsap.to("#square-item-5, #square-item-6, #square-item-7, #square-item-8", {
-  opacity: 1,
-  y: 0,
-  duration: 2.5,
-  stagger: 0.7,
-  scrollTrigger: {
-    trigger: "#row-2",
-    start: "top center",
-    end: "center center",
-    scrub: true
-  }
-});
-
-// Set initial state for #row-3
-gsap.set("#row-3", { y: 50, opacity: 0 });
-
-// Animate #row-3 to appear after the animation of row-2
-gsap.to("#row-3", {
-  y: 0,
-  opacity: 1,
-  duration: 0.5,
-  scrollTrigger: {
-    trigger: "#row-2",
-    start: "top center",
-    end: "center center",
-    scrub: true,
-    onEnter: () => {
-      gsap.to("#row-3", { y: 0, opacity: 1, duration: 0.5 });
+  // Scroll-triggered animation for the first row of square items
+  gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
+    opacity: 1,
+    y: 0,
+    duration: 2.5,
+    stagger: 0.7,
+    scrollTrigger: {
+      trigger: "#row-1",
+      start: "top center",
+      end: "center center",
+      scrub: true
     }
-  }
-});
-// Set initial states for lines
-gsap.set("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { height: 0, opacity: 0 });
+  });
 
-// Scroll-triggered animation for the first four lines (top 50% of the section)
-gsap.timeline({
-  scrollTrigger: {
-    trigger: "#grid-section",
-    start: "top center", // starts when the top of the section is in the center of the viewport
-    end: "50% center", // ends when the middle of the section is in the center of the viewport
-    scrub: true,
-    onEnter: () => {
-      gsap.to("#line-1, #line-2, #line-3, #line-4", { height: "5em", opacity: 1, duration: 1.5, stagger: 0.4 });
+  // Scroll-triggered animation for the second row of square items
+  gsap.to("#square-item-5, #square-item-6, #square-item-7, #square-item-8", {
+    opacity: 1,
+    y: 0,
+    duration: 2.5,
+    stagger: 0.7,
+    scrollTrigger: {
+      trigger: "#row-2",
+      start: "top center",
+      end: "center center",
+      scrub: true
     }
-  }
-});
+  });
 
-// Scroll-triggered animation for the next four lines (bottom 50% of the section)
-gsap.timeline({
-  scrollTrigger: {
-    trigger: "#grid-section",
-    start: "50% center", // starts when the middle of the section is in the center of the viewport
-    end: "bottom center", // ends when the bottom of the section is in the center of the viewport
-    scrub: true,
-    onEnter: () => {
-      gsap.to("#line-5, #line-6, #line-7, #line-8", { height: "5em", opacity: 1, duration: 1.5, stagger: 0.4 });
-    }
-  }
-});
+  // Set initial state for #row-3
+  gsap.set("#row-3", { y: 50, opacity: 0 });
 
-// Hide all lines when the entire grid section is out of the viewport
-gsap.timeline({
-  scrollTrigger: {
-    trigger: "#grid-section",
-    start: "top bottom",
-    end: "bottom top",
-    onLeave: () => {
-      gsap.to("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { opacity: 0, duration: 1.25 });
-    },
-    onEnterBack: () => {
-      gsap.to("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { opacity: 1, duration: 1.25 });
+  // Animate #row-3 to appear after the animation of row-2
+  gsap.to("#row-3", {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    scrollTrigger: {
+      trigger: "#row-2",
+      start: "top center",
+      end: "center center",
+      scrub: true,
+      onEnter: () => {
+        gsap.to("#row-3", { y: 0, opacity: 1, duration: 0.5 });
+      }
     }
-  }
-});
+  });
+
+  // Set initial states for lines
+  gsap.set("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { opacity: 0, y: 50 });
+
+  // Scroll-triggered animation for the first four lines (top 50% of the section)
+  gsap.to("#line-1, #line-2, #line-3, #line-4", {
+    opacity: 1,
+    y: 0,
+    duration: 2.5,
+    stagger: 0.7,
+    scrollTrigger: {
+      trigger: "#grid-section",
+      start: "top center",
+      end: "50% center",
+      scrub: true
+    }
+  });
+
+  // Scroll-triggered animation for the next four lines (bottom 50% of the section)
+  gsap.to("#line-5, #line-6, #line-7, #line-8", {
+    opacity: 1,
+    y: 0,
+    duration: 2.5,
+    stagger: 0.7,
+    scrollTrigger: {
+      trigger: "#grid-section",
+      start: "50% center",
+      end: "bottom center",
+      scrub: true
+    }
+  });
+
+  // Hide all lines when the entire grid section is out of the viewport
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: "#grid-section",
+      start: "top bottom",
+      end: "bottom top",
+      onLeave: () => {
+        gsap.to("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { opacity: 0, duration: 1.25 });
+      },
+      onEnterBack: () => {
+        gsap.to("#line-1, #line-2, #line-3, #line-4, #line-5, #line-6, #line-7, #line-8", { opacity: 1, duration: 1.25 });
+      }
+    }
+  });
 }  // end homepage checker 
-
 // GRID SECTION ANIMATION END
+
 
 // TABS SECTION
 
