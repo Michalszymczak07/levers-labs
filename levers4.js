@@ -109,7 +109,7 @@ gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
   y: 0,
  
   duration: 2.5,
-  stagger: 0.5,
+  stagger: 0.7,
   scrollTrigger: {
     trigger: "#row-1",
     start: "top center",
@@ -120,10 +120,10 @@ gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
 
 // Scroll-triggered animation for the second row of square items
 gsap.to("#square-item-5, #square-item-6, #square-item-7, #square-item-8", {
-  x: 0,
+  opacity: 1,
   y: 0,
-  duration: 0.5,
-  stagger: 0.1,
+  duration: 2.5,
+  stagger: 0.7,
   scrollTrigger: {
     trigger: "#row-2",
     start: "top center",
