@@ -100,16 +100,16 @@ const titleTimeline = gsap.timeline({
 });
 
 // Set initial states for grid items
-gsap.set("#square-item-1, #square-item-2, #square-item-5, #square-item-6", { opacity: 0, y: -50 });
-gsap.set("#square-item-3, #square-item-4, #square-item-7, #square-item-8", { opacity: 0,  y: -50 });
+gsap.set("#square-item-1, #square-item-2, #square-item-5, #square-item-6", { opacity: 0, y: 50 });
+gsap.set("#square-item-3, #square-item-4, #square-item-7, #square-item-8", { opacity: 0,  y: 50 });
 
 // Scroll-triggered animation for the first row of square items
 gsap.to("#square-item-1, #square-item-2, #square-item-3, #square-item-4", {
   opacity:100,
   y: 0,
  
-  duration: 0.5,
-  stagger: 0.1,
+  duration: 2.5,
+  stagger: 0.5,
   scrollTrigger: {
     trigger: "#row-1",
     start: "top center",
