@@ -1,4 +1,3 @@
-function initializeAllAnimations() {
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,6 +39,8 @@ window.addEventListener("scroll", function() {
     }
     lastScrollTop = st <= 0 ? 0 : st;
 }, false);
+
+function initializeAllAnimations() {
 
 
 gsap.registerPlugin(ScrollTrigger);
