@@ -1,4 +1,3 @@
-@media only screen and (min-width: 767px) {
 
 
 // GSAP and ScrollTrigger Registration (if needed)
@@ -241,4 +240,4 @@ gsap.fromTo("#phone",
   }
 );
 // CTA BLACK TABLET IPHONE END
-}
+
