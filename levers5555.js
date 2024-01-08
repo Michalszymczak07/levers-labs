@@ -1,4 +1,4 @@
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 767px) {
 
 
 // GSAP and ScrollTrigger Registration (if needed)
