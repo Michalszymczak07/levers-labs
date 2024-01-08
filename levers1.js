@@ -248,7 +248,4 @@ gsap.fromTo("#phone",
 // CTA BLACK TABLET IPHONE END
 
 
-// Apply animations only on viewports with min-width of 768px
-    mm.add("(min-width: 768px)", () => {
-      initializeAnimations();
-    });
+
