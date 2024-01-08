@@ -1,3 +1,4 @@
+function initializeAllAnimations() {
 
 // Pinning the about section
 ScrollTrigger.create({
@@ -307,5 +308,10 @@ ScrollTrigger.create({
         // Also revert state-4-orange and state-4-purple elements width to 0
         gsap.to('.state-4-orange, .state-4-purple', { width: '0%', duration: 1, ease: 'none' });
     }
+});
+}
+let mm = gsap.matchMedia();
+mm.add("(min-width: 768px)", () => {
+    initializeAllAnimations();
 });
 
