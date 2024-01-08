@@ -1,3 +1,10 @@
+if (window.matchMedia("(min-width: 767px)").matches) {
+    initializeAnimations();
+}
+
+function initializeAnimations() {
+    // Your entire GSAP code goes here
+    // ...
 
 
 // GSAP and ScrollTrigger Registration (if needed)
@@ -241,3 +248,4 @@ gsap.fromTo("#phone",
 );
 // CTA BLACK TABLET IPHONE END
 
+}
