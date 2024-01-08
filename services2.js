@@ -1,4 +1,3 @@
-function initializeAllAnimations() {
 
 gsap.registerPlugin(ScrollTrigger);
 
