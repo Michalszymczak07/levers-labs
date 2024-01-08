@@ -1,10 +1,9 @@
-if (window.matchMedia("(min-width: 767px)").matches) {
-    initializeAnimations();
-}
 
-function initializeAnimations() {
-    // Your entire GSAP code goes here
-    // ...
+let mm = gsap.matchMedia();
+
+
+
+
 
 
 // GSAP and ScrollTrigger Registration (if needed)
@@ -248,4 +247,8 @@ gsap.fromTo("#phone",
 );
 // CTA BLACK TABLET IPHONE END
 
-}
+
+// Apply animations only on viewports with min-width of 768px
+    mm.add("(min-width: 768px)", () => {
+      initializeAnimations();
+    });
