@@ -1,9 +1,9 @@
 
-let mm = gsap.matchMedia();
 
 
 
 
+function initializeAllAnimations() {
 
 
 // GSAP and ScrollTrigger Registration (if needed)
@@ -246,6 +246,13 @@ gsap.fromTo("#phone",
   }
 );
 // CTA BLACK TABLET IPHONE END
+}
+
+let mm = gsap.matchMedia();
+mm.add("(min-width: 768px)", () => {
+    initializeAllAnimations();
+});
+
 
 
 
