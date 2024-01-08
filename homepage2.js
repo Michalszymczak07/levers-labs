@@ -6,10 +6,22 @@ ScrollTrigger.create({
     trigger: "#hero",
     start: "top bottom",
     end: "bottom top",
-    onEnter: () => gsap.to("#navbar", { backgroundColor: "transparent", backdropFilter: "none" }),
-    onEnterBack: () => gsap.to("#navbar", { backgroundColor: "transparent", backdropFilter: "none" }),
-    onLeave: () => gsap.to("#navbar", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" }),
-    onLeaveBack: () => gsap.to("#navbar", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" })
+    onEnter: () => {
+        gsap.to("#navbar", { backgroundColor: "transparent", backdropFilter: "none" });
+        gsap.to(".mobile-nav", { backgroundColor: "transparent", backdropFilter: "none" }); // Additional line for mobile-nav
+    },
+    onEnterBack: () => {
+        gsap.to("#navbar", { backgroundColor: "transparent", backdropFilter: "none" });
+        gsap.to(".mobile-nav", { backgroundColor: "transparent", backdropFilter: "none" }); // Additional line for mobile-nav
+    },
+    onLeave: () => {
+        gsap.to("#navbar", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" });
+        gsap.to(".mobile-nav", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" }); // Additional line for mobile-nav
+    },
+    onLeaveBack: () => {
+        gsap.to("#navbar", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" });
+        gsap.to(".mobile-nav", { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)" }); // Additional line for mobile-nav
+    }
 });
 
 // Change fill of each letter based on #hero visibility
@@ -26,7 +38,8 @@ for (let i = 1; i <= 12; i++) {
 }
 
 // Control navbar visibility based on scroll direction and #hero visibility
-const navbar = document.querySelector("#navbar");
+const desktopNavbar = document.querySelector("#navbar");
+const mobileNavbar = document.querySelector(".mobile-nav"); // Selector for the mobile navbar
 let lastScrollTop = 0;
 let heroInView = false;
 
@@ -41,59 +54,39 @@ window.addEventListener("scroll", function() {
     let st = window.pageYOffset || document.documentElement.scrollTop;
     if (st > lastScrollTop && !heroInView) {
         // Scroll Down & #hero is not in view
-        gsap.to(navbar, { y: -100, duration: 0.3 }); // Adjust to navbar's height
+        gsap.to(desktopNavbar, { y: -100, duration: 0.3 }); // Adjust to navbar's height
+        gsap.to(mobileNavbar, { y: -100, duration: 0.3 }); // Additional line for mobile-nav
     } else {
         // Scroll Up or #hero is in view
-        gsap.to(navbar, { y: 0, duration: 0.3 });
+        gsap.to(desktopNavbar, { y: 0, duration: 0.3 });
+        gsap.to(mobileNavbar, { y: 0, duration: 0.3 }); // Additional line for mobile-nav
     }
     lastScrollTop = st <= 0 ? 0 : st;
 }, false);
 
-
-
-
 // Function to update navbar style based on hero visibility
 function updateNavbarStyle() {
-  const navbar = document.getElementById('navbar'); // Replace 'navbar' with your navbar ID
-  const hero = document.getElementById('hero'); // Replace 'hero' with your hero section ID
-  const heroRect = hero.getBoundingClientRect();
+    const hero = document.getElementById('hero'); // Replace 'hero' with your hero section ID
+    const heroRect = hero.getBoundingClientRect();
 
-  if (heroRect.bottom <= 0) {
-    // Hero section is out of viewport
-    gsap.to(navbar, { backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(10px)' });
-  } else {
-    // Hero section is in viewport
-    gsap.to(navbar, { backgroundColor: 'transparent', backdropFilter: 'blur(0)' });
-  }
+    if (heroRect.bottom <= 0) {
+        // Hero section is out of viewport
+        gsap.to(desktopNavbar, { backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(10px)' });
+        gsap.to(mobileNavbar, { backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(10px)' }); // Additional line for mobile-nav
+    } else {
+        // Hero section is in viewport
+        gsap.to(desktopNavbar, { backgroundColor: 'transparent', backdropFilter: 'blur(0)' });
+        gsap.to(mobileNavbar, { backgroundColor: 'transparent', backdropFilter: 'blur(0)' }); // Additional line for mobile-nav
+    }
 }
 
 // Listen for scroll events with GSAP ScrollTrigger
-gsap.registerPlugin(ScrollTrigger);
-
 ScrollTrigger.addEventListener("scroll", () => {
-  updateNavbarStyle();
+    updateNavbarStyle();
 });
 
 // Initial call to updateNavbarStyle
 updateNavbarStyle();
-
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.utils.toArray(".client-logo").forEach((logo, i) => {
-  gsap.from(logo, {
-    scrollTrigger: {
-      trigger: "#client-logo-section",
-      start: "top center", // Adjust this to control when the animation starts
-      toggleActions: "play none none none"
-    },
-    opacity: 0,
-    duration: 1, // Duration of the fade-in effect
-    delay: i * 0.5, // Delay each logo slightly more than the previous one
-    ease: "power1.inOut"
-  });
-});
-
-// NAVBAR END 
 
 function initializeAllAnimations() {
 
