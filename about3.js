@@ -1,3 +1,44 @@
+gsap.registerPlugin(ScrollTrigger);
+
+// Navbar and Mobile Nav references
+const navbar = document.querySelector("#navbar");
+const mobileNav = document.querySelector(".mobile-nav");
+
+// Set initial styles for navbar, mobile nav, and letters
+gsap.set([navbar, mobileNav], { backgroundColor: "transparent", backdropFilter: "none" });
+for (let i = 1; i <= 12; i++) {
+    gsap.set(`#letter${i}`, { fill: "#fff" }); // Dark color
+}
+
+// Control navbar and mobile nav visibility and style based on scroll direction
+let lastScrollTop = 0;
+
+window.addEventListener("scroll", function() {
+    let st = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (st > lastScrollTop) {
+        // Scrolling Down
+        gsap.to([navbar, mobileNav], { y: -100, duration: 0.3 }); // Adjust to navbar's height
+        gsap.to([navbar, mobileNav], { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)", duration: 0.3 });
+        // Change letters' fill to dark color
+        for (let i = 1; i <= 12; i++) {
+            gsap.to(`#letter${i}`, { fill: "#181715", duration: 0.3 }); // Dark color
+        }
+    } else {
+        // Scrolling Up
+        gsap.to([navbar, mobileNav], { y: 0, duration: 0.3 });
+
+        // Change navbar, mobile nav, and letters' style if close to the top
+        if (st < 50) { 
+            gsap.to([navbar, mobileNav], { backgroundColor: "transparent", backdropFilter: "none", duration: 0.3 });
+            for (let i = 1; i <= 12; i++) {
+                gsap.to(`#letter${i}`, { fill: "#fff", duration: 0.3 }); // Dark color
+            }
+        }
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+}, false);
+
 function initializeAllAnimations() {
 
 // Pinning the about section
@@ -73,46 +114,6 @@ mainTimeline.fromTo(".about-img-wrapper",
 
 
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Navbar and Mobile Nav references
-const navbar = document.querySelector("#navbar");
-const mobileNav = document.querySelector(".mobile-nav");
-
-// Set initial styles for navbar, mobile nav, and letters
-gsap.set([navbar, mobileNav], { backgroundColor: "transparent", backdropFilter: "none" });
-for (let i = 1; i <= 12; i++) {
-    gsap.set(`#letter${i}`, { fill: "#fff" }); // Dark color
-}
-
-// Control navbar and mobile nav visibility and style based on scroll direction
-let lastScrollTop = 0;
-
-window.addEventListener("scroll", function() {
-    let st = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (st > lastScrollTop) {
-        // Scrolling Down
-        gsap.to([navbar, mobileNav], { y: -100, duration: 0.3 }); // Adjust to navbar's height
-        gsap.to([navbar, mobileNav], { backgroundColor: "rgba(255, 255, 255, 0.5)", backdropFilter: "blur(10px)", duration: 0.3 });
-        // Change letters' fill to dark color
-        for (let i = 1; i <= 12; i++) {
-            gsap.to(`#letter${i}`, { fill: "#181715", duration: 0.3 }); // Dark color
-        }
-    } else {
-        // Scrolling Up
-        gsap.to([navbar, mobileNav], { y: 0, duration: 0.3 });
-
-        // Change navbar, mobile nav, and letters' style if close to the top
-        if (st < 50) { 
-            gsap.to([navbar, mobileNav], { backgroundColor: "transparent", backdropFilter: "none", duration: 0.3 });
-            for (let i = 1; i <= 12; i++) {
-                gsap.to(`#letter${i}`, { fill: "#fff", duration: 0.3 }); // Dark color
-            }
-        }
-    }
-    lastScrollTop = st <= 0 ? 0 : st;
-}, false);
 
 
 
