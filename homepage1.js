@@ -1,3 +1,4 @@
+//NAVBAR
 gsap.registerPlugin(ScrollTrigger);
 
 // Change navbar background based on #hero visibility
@@ -92,8 +93,9 @@ gsap.utils.toArray(".client-logo").forEach((logo, i) => {
   });
 });
 
+// NAVBAR END 
 
-
+function initializeAllAnimations() {
 
 ScrollTrigger.create({
   trigger: '#hero-section', // element który ma być sticky
@@ -261,6 +263,11 @@ ScrollTrigger.create({
         // Also revert state-4-orange elements width to 0
         gsap.to('.state-4-orange', { width: '0%', duration: 1, ease: 'none' });
     }
+});
+}
+let mm = gsap.matchMedia();
+mm.add("(min-width: 768px)", () => {
+    initializeAllAnimations();
 });
 
 // THE CRAZY SECTION END>
