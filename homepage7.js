@@ -219,13 +219,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Animation for changing styles and animating state-4
+// Animation for changing styles and animating state-4-line and state-4-orange when #sp4 is in the center of the viewport
 ScrollTrigger.create({
     trigger: '#sp4',
-    start: 'top center',
-    end: 'bottom top',
+    start: 'center center',
     onEnter: () => {
         gsap.to('#sp4-wrapper', { backgroundColor: '#181715', duration: 1 });
         gsap.to('#sp4', { color: 'white', duration: 1 });
@@ -243,17 +240,7 @@ ScrollTrigger.create({
                     width: '100%',
                     duration: 1,
                     stagger: 0.1, // slight delay between each orange element's animation
-                    ease: 'none',
-                    onComplete: () => {
-                        // Pin .fixed-hero-wrapper after the animation completes
-                        ScrollTrigger.create({
-                            trigger: '.fixed-hero-wrapper',
-                            start: 'top top', // Start pinning when it's at the top
-                            end: '+=100vh', // Extend for an additional 100vh
-                            pin: true,
-                            pinSpacing: false
-                        });
-                    }
+                    ease: 'none'
                 });
             }
         });
@@ -262,11 +249,14 @@ ScrollTrigger.create({
         gsap.to('#sp4-wrapper', { backgroundColor: '#E8DACC', duration: 1 });
         gsap.to('#sp4', { color: '', duration: 1 });
         gsap.to('.line-mask', { backgroundColor: '#E8DACC', duration: 1 });
+
+        // Revert state-4-line elements width to 0
         gsap.to('.state-4-line', { width: '0%', duration: 1, ease: 'none' });
+
+        // Also revert state-4-orange elements width to 0
         gsap.to('.state-4-orange', { width: '0%', duration: 1, ease: 'none' });
     }
 });
-
 }
 let mm = gsap.matchMedia();
 mm.add("(min-width: 768px)", () => {
@@ -274,4 +264,3 @@ mm.add("(min-width: 768px)", () => {
 });
 
 // THE CRAZY SECTION END>
-
