@@ -222,7 +222,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Animation for changing styles and animating state-4-line and state-4-orange when #sp4 is in the center of the viewport
 ScrollTrigger.create({
     trigger: '#sp4',
-    start: 't center',
+    start: 'center center',
     onEnter: () => {
         gsap.to('#sp4-wrapper', { backgroundColor: '#181715', duration: 1 });
         gsap.to('#sp4', { color: 'white', duration: 1 });
